@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="contenedor">
+    <h1> Lista de Compras </h1>
+    <div class="barra">
+
+    <input type="text"
+     placeholder="escribe"
+     id="inp"
+     autofocus
+     required
+     
+    >
+    <button id="enviar"> enviar </button>
+</div> 
+<div class="list">
+
+    <ul id="listas"></ul>
+
+</div>
+
+</div>
+    
+
+<script>
+    $(document).ready(function () {
+
+        const guarda = localStorage.getItem("reset")
+
+         if (guarda) {
+            $("#listas").html(guarda)
+         }
+
+  
+        $("#enviar").click(function () {
+
+            const inp = $("#inp").val();  
+
+            if (inp !== "") {
+                $("#listas").append("<li>" + inp + "</li>");
+                $("#inp").val("");
+
+                localStorage.setItem("reset",$("#listas").html())
+            } else {
+                alert("rellena los campos");
+            }
+
+           
+        }); 
+
+
+
+        $("#listas").on("click", "li", function () {
+            let texto = $(this).text();
+            let pregunta = confirm("¿Estás seguro de eliminar '" + texto + "'?");
+
+            if (pregunta) {
+                
+                
+
+                $(this).closest("li").remove();
+              
+              
+
+            }
+            localStorage.setItem("reset", $("#listas").html())
+        });
+
+    });
+</script>
+
+</body>
+</html>

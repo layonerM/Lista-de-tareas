@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="form.css" />
+  </head>
+  <body>
+    <div class="padre">
+      <h1>Rellena el formulario</h1>
+
+      <input
+        type="text"
+        placeholder=" escribe tu nombre"
+        id="nombre"
+        autofocus
+        required
+      />
+
+      <button id="enviarN">enviar</button>
+
+      <input
+        type="email"
+        placeholder="escribe tu correo "
+        id="correo"
+        autofocus
+        required
+      />
+
+      <button id="enviarE">enviar</button>
+
+      <input
+        type="password"
+        placeholder="escribe tu contraseña "
+        id="contra"
+        autofocus
+        required
+      />
+
+      <button id="enviarC">enviar</button>
+      <ul id="todos"></ul>
+      <ul id="todos1"></ul>
+      <ul id="todos2"></ul>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        
+        let guarda = localStorage.getItem("layo");
+
+        if (guarda) {
+          $("#enviar").html(guarda);
+        }
+
+        $("#enviarN").click(function () {
+          let nombre = $("#nombre").val();
+
+          if (nombre !== "") {
+            $("#todos").append("<li>" + nombre + "</li>");
+            $("#nombre").val(" ");
+          } else {
+            alert("rellena los campos");
+          }
+        });
+
+        $("#todos").on("click", "li", function () {
+          let confirma = confirm("estas seguro que deseas eliminar tu nombre?");
+          if (confirma) {
+            $(this).closest("li").remove();
+          }
+        });
+
+        $("#enviarE").click(function () {
+          let correo = $("#correo").val();
+
+          if (correo !== "") {
+            $("#todos1").append("<li>" + correo + "</li>");
+            $("#correo").val("");
+          } else {
+            alert("rellena los campos");
+          }
+        });
+
+        $("#todos1").on("click", "li", function () {
+          let pregunta = confirm("estas seguro que deseas elimnar tu correo?");
+          if (pregunta) {
+            $(this).closest("li").remove();
+          }
+        });
+
+        $("#enviarC").click(function () {
+          let contra = $("#contra").val();
+
+          if (contra !== "") {
+            $("#todos2").append("<li>" + contra + "</li>");
+
+            $("#contra").val("");
+          } else {
+            alert("rellena los campos ");
+          }
+        });
+
+        $("#todos2").on("click", "li", function () {
+          let preg = confirm("seguro que deseas eliminar la contraseña?");
+          if (preg) {
+            $(this).closest("li").remove();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
